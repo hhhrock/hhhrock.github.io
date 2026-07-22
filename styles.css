@@ -83,6 +83,14 @@ h2 { color: var(--accent); }
 
 .panel { border: 1px solid var(--line); background: var(--surface); margin: 1rem 0; padding: 1.5rem; }
 
+.project-grid { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 1.5rem; }
+.project-card { border: 1px solid var(--line); margin: 0; overflow: hidden; background: #030604; }
+.project-card img { display: block; height: 19rem; object-fit: cover; width: 100%; }
+.project-card figcaption { color: var(--text); padding: .85rem 1rem; }
+.experience-panel { align-items: center; display: grid; gap: 2rem; grid-template-columns: 1fr 1fr; }
+.experience-panel img { border: 1px solid var(--line); display: block; max-width: 100%; width: 100%; }
+.experience-lead { color: var(--accent) !important; font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 700; line-height: 1.15; }
+
 .game-shell { max-width: 28rem; }
 
 .game-meta, .game-actions { align-items: center; display: flex; flex-wrap: wrap; gap: .75rem; justify-content: space-between; margin: 1rem 0; }
@@ -104,4 +112,6 @@ h2 { color: var(--accent); }
   .site-nav { display: none; flex-direction: column; width: 100%; }
   .site-nav.is-open { display: flex; }
   .site-header { flex-wrap: wrap; }
+  .project-grid, .experience-panel { grid-template-columns: 1fr; }
+  .project-card img { height: auto; max-height: 24rem; }
 }

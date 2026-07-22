@@ -3,75 +3,54 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="[사람 확인 필요]의 프로페셔널 포트폴리오">
-    <title>[사람 확인 필요] | Portfolio</title>
+    <meta name="description" content="조성지의 교육용 실습 산출물 포트폴리오">
+    <title>교육용 실습 산출물 | 조성지</title>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
     <header class="site-header">
-      <a class="brand" href="#main-content" aria-label="홈으로 이동">[사람 확인 필요]</a>
+      <a class="brand" href="#main-content" aria-label="홈으로 이동">교육용 실습 산출물</a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
       <nav id="site-nav" class="site-nav" aria-label="주요 메뉴">
-        <a href="#main-content">Home</a>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#games">Games</a>
-        <a href="#contact">Contact</a>
+        <a href="#main-content">Home</a><a href="#about">About</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#games">Games</a><a href="#contact">Contact</a>
       </nav>
     </header>
-
     <main id="main-content">
       <section class="hero" aria-labelledby="hero-title">
         <p class="eyebrow">SYSTEM ONLINE</p>
-        <h1 id="hero-title">[사람 확인 필요]</h1>
-        <p class="hero-copy">[사람 확인 필요] 프로페셔널 소개 문구</p>
+        <h1 id="hero-title">교육용 실습 산출물</h1>
+        <p class="hero-copy">아이디어를 코드로 만들고, 화면에서 직접 확인하는 실습 기록입니다.</p>
         <a class="button" href="#games">Games 모듈 보기</a>
       </section>
-
       <section id="about" class="panel" aria-labelledby="about-title">
         <h2 id="about-title">About</h2>
-        <p>CV 자료 확인 후 프로필 내용을 입력합니다. <strong>[사람 확인 필요]</strong></p>
+        <p><strong>조성지</strong> · 안드로이드 프레임워크 개발자</p>
+        <p>사용자 경험과 디바이스 플랫폼의 접점을 탐구하며, 작동하는 결과물로 배움을 기록합니다.</p>
       </section>
-
       <section id="projects" class="panel" aria-labelledby="projects-title">
         <h2 id="projects-title">Projects</h2>
-        <p>프로젝트 정보는 승인된 자료를 바탕으로 추가합니다. <strong>[사람 확인 필요]</strong></p>
-      </section>
-
-      <section id="experience" class="panel" aria-labelledby="experience-title">
-        <h2 id="experience-title">Experience</h2>
-        <p>경력 정보는 CV 확인 후 추가합니다. <strong>[사람 확인 필요]</strong></p>
-      </section>
-
-      <section id="games" class="panel game-placeholder" aria-labelledby="games-title">
-        <h2 id="games-title">Games</h2>
-        <p>키보드 방향키/WASD 또는 모바일 버튼으로 지렁이를 움직이세요.</p>
-        <div class="game-shell">
-          <div class="game-meta" aria-live="polite">
-            <span>점수 <strong id="score">0</strong></span>
-            <span>최고 <strong id="high-score">0</strong></span>
-            <span id="game-status">준비</span>
-          </div>
-          <canvas id="game-board" width="400" height="400" aria-label="지렁이게임 보드"></canvas>
-          <div class="game-actions">
-            <button id="start-game" type="button">시작</button>
-            <button id="pause-game" type="button">일시정지</button>
-            <button id="restart-game" type="button">재시작</button>
-          </div>
-          <div class="game-controls" aria-label="모바일 방향 버튼">
-            <span></span><button type="button" data-direction="up" aria-label="위">▲</button><span></span>
-            <button type="button" data-direction="left" aria-label="왼쪽">◀</button><button type="button" data-direction="down" aria-label="아래">▼</button><button type="button" data-direction="right" aria-label="오른쪽">▶</button>
-          </div>
-          <p class="game-help">Space: 일시정지 · R: 재시작 · 반대 방향 전환은 무시됩니다.</p>
+        <p>갤럭시 휴대폰과 갤럭시 워치 개발 프로젝트를 진행했습니다.</p>
+        <div class="project-grid">
+          <figure class="project-card"><img src="assets/galaxy-phone.png" alt="어두운 배경 위에 세워진 갤럭시 휴대폰 이미지" loading="lazy"><figcaption>Galaxy Phone · 모바일 프레임워크 개발</figcaption></figure>
+          <figure class="project-card"><img src="assets/galaxy-watch.png" alt="초록빛 인터페이스가 빛나는 갤럭시 워치 이미지" loading="lazy"><figcaption>Galaxy Watch · 웨어러블 경험 개발</figcaption></figure>
         </div>
       </section>
-
-      <section id="contact" class="panel" aria-labelledby="contact-title">
-        <h2 id="contact-title">Contact</h2>
-        <p>공개 연락처는 사람 확인 후 추가합니다. <strong>[사람 확인 필요]</strong></p>
+      <section id="experience" class="panel experience-panel" aria-labelledby="experience-title">
+        <div><h2 id="experience-title">Experience</h2><p class="experience-lead">궁금해요? 궁금하면 연락하세요.</p><p>코드는 질문에서 시작하고, 좋은 대화에서 다음 버전이 태어납니다. 호기심은 언제나 환영입니다.</p></div>
+        <img src="assets/experience-terminal.png" alt="초록빛 터미널을 바라보는 호기심 많은 개발자 일러스트" loading="lazy">
       </section>
+      <section id="games" class="panel game-placeholder" aria-labelledby="games-title">
+        <h2 id="games-title">Games</h2><p>방향키·WASD 또는 모바일 버튼으로 지렁이를 움직여 보세요.</p>
+        <div class="game-shell"><div class="game-meta" aria-live="polite"><span>점수 <strong id="score">0</strong></span><span>최고 <strong id="high-score">0</strong></span><span id="game-status">준비</span></div>
+          <canvas id="game-board" width="400" height="400" aria-label="지렁이게임 보드"></canvas>
+          <div class="game-actions"><button id="start-game" type="button">시작</button><button id="pause-game" type="button">일시정지</button><button id="restart-game" type="button">재시작</button></div>
+          <div class="game-controls" aria-label="모바일 방향 버튼"><span></span><button type="button" data-direction="up" aria-label="위">↑</button><span></span><button type="button" data-direction="left" aria-label="왼쪽">←</button><button type="button" data-direction="down" aria-label="아래">↓</button><button type="button" data-direction="right" aria-label="오른쪽">→</button></div>
+          <p class="game-help">Space: 일시정지 · R: 재시작 · 반대 방향 전환은 방지됩니다.</p>
+        </div>
+      </section>
+      <section id="contact" class="panel" aria-labelledby="contact-title"><h2 id="contact-title">Contact</h2><p>궁금한 점이나 함께 만들 이야기가 있다면 <a href="mailto:hhhrock7@gmail.com">hhhrock7@gmail.com</a>으로 연락하세요.</p></section>
     </main>
   </body>
 </html>
