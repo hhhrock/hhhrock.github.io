@@ -9,10 +9,12 @@
     <script src="script.js" defer></script>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
     <header class="site-header">
-      <a class="brand" href="#top">[사람 확인 필요]</a>
+      <a class="brand" href="#main-content" aria-label="홈으로 이동">[사람 확인 필요]</a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
       <nav id="site-nav" class="site-nav" aria-label="주요 메뉴">
+        <a href="#main-content">Home</a>
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
         <a href="#games">Games</a>
@@ -20,11 +22,12 @@
       </nav>
     </header>
 
-    <main id="top">
+    <main id="main-content">
       <section class="hero" aria-labelledby="hero-title">
         <p class="eyebrow">SYSTEM ONLINE</p>
         <h1 id="hero-title">[사람 확인 필요]</h1>
         <p class="hero-copy">[사람 확인 필요] 프로페셔널 소개 문구</p>
+        <a class="button" href="#games">Games 모듈 보기</a>
       </section>
 
       <section id="about" class="panel" aria-labelledby="about-title">
@@ -37,9 +40,32 @@
         <p>프로젝트 정보는 승인된 자료를 바탕으로 추가합니다. <strong>[사람 확인 필요]</strong></p>
       </section>
 
+      <section id="experience" class="panel" aria-labelledby="experience-title">
+        <h2 id="experience-title">Experience</h2>
+        <p>경력 정보는 CV 확인 후 추가합니다. <strong>[사람 확인 필요]</strong></p>
+      </section>
+
       <section id="games" class="panel game-placeholder" aria-labelledby="games-title">
         <h2 id="games-title">Games</h2>
-        <p>지렁이게임 영역 준비 중입니다. 게임 기능은 다음 개발 루프에서 구현합니다.</p>
+        <p>키보드 방향키/WASD 또는 모바일 버튼으로 지렁이를 움직이세요.</p>
+        <div class="game-shell">
+          <div class="game-meta" aria-live="polite">
+            <span>점수 <strong id="score">0</strong></span>
+            <span>최고 <strong id="high-score">0</strong></span>
+            <span id="game-status">준비</span>
+          </div>
+          <canvas id="game-board" width="400" height="400" aria-label="지렁이게임 보드"></canvas>
+          <div class="game-actions">
+            <button id="start-game" type="button">시작</button>
+            <button id="pause-game" type="button">일시정지</button>
+            <button id="restart-game" type="button">재시작</button>
+          </div>
+          <div class="game-controls" aria-label="모바일 방향 버튼">
+            <span></span><button type="button" data-direction="up" aria-label="위">▲</button><span></span>
+            <button type="button" data-direction="left" aria-label="왼쪽">◀</button><button type="button" data-direction="down" aria-label="아래">▼</button><button type="button" data-direction="right" aria-label="오른쪽">▶</button>
+          </div>
+          <p class="game-help">Space: 일시정지 · R: 재시작 · 반대 방향 전환은 무시됩니다.</p>
+        </div>
       </section>
 
       <section id="contact" class="panel" aria-labelledby="contact-title">
