@@ -176,16 +176,6 @@ document.querySelector('#reset').addEventListener('click',()=>{state.notes={}},t
     finally{submit.disabled=false}
   };
   const oldKeydown=document.onkeydown;document.onkeydown=e=>{if(e.key==='Escape'){close();closeDetail();closeDayPicker()}else if(oldKeydown)oldKeydown(e)};
-  const relabelAsShopping=['캐널시티','JR 하카타시티','라라포트','텐진 지하상가','니시진 상점가','카와바타 상점가'];
-  places.forEach(p=>{if(relabelAsShopping.some(token=>p.name.toLowerCase().includes(token.toLowerCase())))p.category='shopping'});
-  const duplicateVenueGroups=[['라라포트·실물','LaLaport FUKUOKA'],['JR 하카타시티','JR 하카타 시티·아뮤플라자 하카타']];
-  duplicateVenueGroups.forEach(group=>{const matches=places.filter(p=>group.some(token=>p.name.toLowerCase().includes(token.toLowerCase())));if(matches.length>1){const keeper=matches.find(p=>p.id.startsWith('FUK-'))||matches[0];matches.filter(p=>p!==keeper).forEach(p=>{const i=places.indexOf(p);if(i>=0)places.splice(i,1)})}});
-  const shoppingMeta={'후쿠오카PARCO':{address:'福岡県福岡市中央区天神2-11-1'},'ONEFUKUOKABLDG.':{address:'福岡県福岡市中央区天神1-11-1'},'VIORO':{address:'福岡県福岡市中央区天神2-10-3'},'미나텐진':{address:'福岡県福岡市中央区天神4-3-8'},'이와타야본점':{address:'福岡県福岡市中央区天神2-5-35'},'후쿠오카미츠코시':{address:'福岡県福岡市中央区天神2-1-1'},'다이마루후쿠오카텐진점':{address:'福岡県福岡市中央区天神1-4-1'},'하카타한큐':{address:'福岡県福岡市博多区博多駅中央街1-1'},'KITTE하카타':{address:'福岡県福岡市博多区博多駅中央街9-1'},'토스프리미엄아울렛':{address:'佐賀県鳥栖市弥生が丘8-1'}};
-  places.forEach(p=>{const meta=shoppingMeta[normalizeName(p.name)];if(meta){p.address=meta.address;p.sourceStatus='공식 매장 목록 확인 · 최근 방문 후기 검토 완료'}});
-  const shoppingBrandNotes=[
-    ['캐널시티','ASICS·Levi’s·ABC-MART·UNIQLO'],['LaLaport','UNIQLO·GU·ABC-MART·GAP'],['라라포트','UNIQLO·GU·ABC-MART·GAP'],['JR 하카타시티','BEAMS·MUJI·東急ハンズ·ABC-MART'],['JR 하카타 시티','BEAMS·MUJI·東急ハンズ·ABC-MART'],['리버레인','Zoff·ABC-MART·지역 편집숍'],['MARK IS','UNIQLO·GU·ABC-MART·ニトリ'],['솔라리아','ESTNATION·Maison Margiela·MILKFED.'],['텐진 지하상가','LUSH·PLAZA·Zoff·ABC-MART'],['베이사이드','지역 기념품점·식음 매장·생활잡화점'],['이온몰 후쿠오카','UNIQLO·GU·ABC-MART·H&M'],['키노하 몰','UNIQLO·GU·ABC-MART·NITORI'],['Standard Products','Standard Products·DAISO·THREEPPY'],['니시진 상점가','지역 상점·식료품점·생활잡화점'],['카와바타 상점가',' 지역 전통 상점·과자점·기념품점']
-  ];
-  places.filter(p=>p.category==='shopping').forEach(p=>{const hit=shoppingBrandNotes.find(([token])=>p.name.includes(token));if(hit&&!p.summary.includes('대표 브랜드'))p.summary=`${p.summary} 대표 브랜드·매장 예시: ${hit[1]} (입점·영업 여부는 방문 전 공식 목록 확인)`;p.description=p.summary});
   renderPlaces();renderSchedule();
 })();
 </script></body></html>
