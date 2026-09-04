@@ -181,7 +181,7 @@ document.querySelector('#reset').addEventListener('click',()=>{state.notes={}},t
   form.addEventListener('submit',()=>setTimeout(()=>{const mine=places.filter(p=>p.visitor==='내가 추가한 장소');mine.forEach(p=>{p.grade='E';p.familyNotes='E · 내가 추가한 장소입니다. 가족 여행 적합성과 운영정보를 직접 확인하세요.'});if(mine.length){save();renderPlaces();renderSchedule()}},0));
   const oldKeydown=document.onkeydown;document.onkeydown=e=>{if(e.key==='Escape'){close();closeDetail();closeDayPicker()}else if(oldKeydown)oldKeydown(e)};
   const baseCard=card;card=function(p){const html=baseCard(p);return p.grade==='E'?html.replace(/class="grade"/,'class="grade mine"').replace(/>E<\/span>/,'>E · 내가 추가한 장소<\/span>'):html};
-  const baseOpenDetail=openDetail;openDetail=function(id){baseOpenDetail(id);const p=get(id);if(p?.grade==='E')document.querySelectorAll('#detail h3').forEach(h=>{if(h.textContent.includes('가족 적합성')&&!h.textContent.includes('내가 추가한 장소'))h.textContent+=' · 내가 추가한 장소'})};
+  const baseOpenDetail=openDetail;openDetail=function(id){baseOpenDetail(id);const p=get(id);if(p?.grade==='E')document.querySelectorAll('#detail h3').forEach(h=>{if(h.textContent.includes('\uAC00\uC871')&&!h.textContent.includes('\uB0B4\uAC00 \uCD94\uAC00\uD55C \uC7A5\uC18C'))h.textContent+=' \u00B7 \uB0B4\uAC00 \uCD94\uAC00\uD55C \uC7A5\uC18C'})};
   const relabelAsShopping=['캐널시티','JR 하카타시티','라라포트','텐진 지하상가','니시진 상점가','카와바타 상점가'];
   places.forEach(p=>{if(relabelAsShopping.some(token=>p.name.toLowerCase().includes(token.toLowerCase())))p.category='shopping'});
   const duplicateVenueGroups=[['라라포트·실물','LaLaport FUKUOKA'],['JR 하카타시티','JR 하카타 시티·아뮤플라자 하카타']];
