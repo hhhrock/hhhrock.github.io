@@ -171,4 +171,10 @@ function returnRoute(dayId){const ids=state.schedule[dayId];if(!ids.length)retur
 const lodgingObserver=new MutationObserver(()=>document.querySelectorAll('#detail small').forEach(el=>{if(el.textContent.includes('하카타역'))el.textContent='숙소 기준'}));
 lodgingObserver.observe(document.querySelector('#detail'),{childList:true,subtree:true});
 renderSchedule();
+</script><script id="trip-route-and-label-overrides">
+document.querySelector('.appVersion').textContent='v0.96';
+const canalCity=places.find(p=>p.id==='FUK-002');
+if(canalCity)canalCity.name='캐널시티 하카타 (커피카페)';
+function returnRoute(dayId){const ids=state.schedule[dayId];if(!ids.length)return'';const last=get(ids[ids.length-1]);if(!last)return'';if(dayId==='day-1'){const d=distance(last.coordinates,DAY1_LODGING.point);return`<div class="route">🚗 ${esc(last.name)} → ${esc(DAY1_LODGING.label)} · 예상 약 ${d.toFixed(1)}km · 렌터카 이동 ${carDriveLabel(d)}(고속도로 기준, 실제 교통상황에 따라 다름)</div>`}if(dayId==='day-2'){const d=distance(last.coordinates,LODGING_BASE.point);return`<div class="route">🚗 ${esc(last.name)} → ${esc(LODGING_BASE.label)} · 예상 약 ${d.toFixed(1)}km · 렌터카 이동 ${carDriveLabel(d)}(고속도로 기준, 실제 교통상황에 따라 다름)</div>`}if(dayId==='day-6'){const airport=areaPoint('후쿠오카공항'),d=distance(last.coordinates,airport),taxi=Math.max(5,Math.round(d/0.38)+4),pub=Math.max(8,Math.round(d/0.23)+8);return`<div class="route">✈ ${esc(last.name)} → 후쿠오카 공항 · 예상 ${d.toFixed(1)}km · 택시 ${taxi}분(${taxiFareLabel(d)}) · 대중교통·도보 포함 ${pub}분</div>`}const d=distance(last.coordinates,LODGING_BASE.point),taxi=Math.max(5,Math.round(d/0.38)+4),pub=Math.max(8,Math.round(d/0.23)+8);return`<div class="route">${esc(last.name)} → ${esc(LODGING_BASE.label)} · 예상 ${d.toFixed(1)}km · 택시 ${taxi}분(${taxiFareLabel(d)}) · 대중교통·도보 포함 ${pub}분</div>`}
+renderPlaces();renderSchedule();
 </script></body></html>
