@@ -40,7 +40,7 @@
 </style>
 </head>
 <body>
-<div class="app"><header class="topbar"><div><p class="eyebrow">FUKUOKA FAMILY TRIP · FINAL PLANNER</p><h1>냥아♡ 후쿠오카 가자</h1></div><div class="topActions"><span class="saveState" id="saveState">● 저장 준비</span><button class="btn ghost" id="reset" type="button">일정 초기화</button><span class="appVersion" title="현재 배포 버전">v0.95</span></div></header>
+<div class="app"><header class="topbar"><div><p class="eyebrow">FUKUOKA FAMILY TRIP · FINAL PLANNER</p><h1>냥아♡ 후쿠오카 가자</h1></div><div class="topActions"><span class="saveState" id="saveState">● 저장 준비</span><button class="btn ghost" id="reset" type="button">일정 초기화</button><span class="appVersion" title="현재 배포 버전">v0.98</span></div></header>
 <div class="mobileTabs" role="tablist"><button class="mobileTab active" data-mobiletab="places" type="button">후보 탐색</button><button class="mobileTab" data-mobiletab="schedule" type="button">일정 보기 <span id="mobileScheduleCount"></span></button></div>
 <main class="layout"><section class="panel" id="placesPanel"><div class="panelHead"><div><h2>후보 탐색</h2><p class="subtle">날짜와 관계없이 후보를 먼저 고른 뒤 원하는 날짜에 배치하세요. 가족등급 높은순(A→D)으로 정렬됩니다.</p></div><span class="pill" id="placeCount">0개</span></div><div class="tabs"><button class="tab active" data-cat="all">전체</button><button class="tab" data-cat="spot">관광지</button><button class="tab" data-cat="restaurant">음식점</button><button class="tab" data-cat="shopping">쇼핑몰</button></div><div class="controls"><label class="sr" for="search">검색</label><input class="search" id="search" type="search" placeholder="장소명·지역·음식 종류 검색"><label class="sr" for="area">지역</label><select id="area"><option value="all">전체 지역</option></select><label class="sr" for="grade">가족등급</label><select id="grade"><option value="all">가족등급 전체</option><option value="A">A 적극추천</option><option value="A/B">A/B 조건부 추천</option><option value="B">B 추천</option><option value="C">C 조건부</option><option value="D">D 더많은장소</option></select></div><div class="placeList" id="placeList"></div></section>
 <section class="panel schedule" id="schedulePanel"><div class="panelHead scheduleHead"><div><h2>5박 6일 일정</h2><p class="subtle">후보를 끌어다 놓거나 카드의 날짜 배치 버튼을 사용하세요. DAY 1은 벳푸 이동, DAY 2는 차량 반납·하카타 전환 기준입니다.</p></div><span class="pill" id="scheduleCount">0개 배치</span></div><div class="notice" id="notice" role="status"></div><div class="scheduleBoard" id="scheduleBoard"></div></section></main></div>
@@ -177,9 +177,50 @@ const lodgingObserver=new MutationObserver(()=>document.querySelectorAll('#detai
 lodgingObserver.observe(document.querySelector('#detail'),{childList:true,subtree:true});
 renderSchedule();
 </script><script id="trip-route-and-label-overrides">
-document.querySelector('.appVersion').textContent='v0.97';
+document.querySelector('.appVersion').textContent='v0.98';
 const canalCity=places.find(p=>p.id==='FUK-002');
 if(canalCity)canalCity.name='캐널시티 하카타 (커피카페)';
+const YUFUIN_SPOT_GUIDE='https://yufuin.gr.jp/area/yufuin/';
+const YUFUIN_POINT={lat:33.2653,lng:131.3578};
+const yufuinSpots=[
+ ['YU-SPOT-001','긴린코 호수','호수 산책과 계절 풍경을 즐기는 유후인의 대표 명소','30~60분',{lat:33.2659,lng:131.3631},'https://yufuin.gr.jp/spot/spot-1268/'],
+ ['YU-SPOT-002','유노츠보 거리','먹거리와 기념품점이 이어지는 유후인 중심 산책 거리','1~2시간',{lat:33.2670,lng:131.3560},YUFUIN_SPOT_GUIDE],
+ ['YU-SPOT-003','유후인 플로럴 빌리지','영국 코츠월즈풍 건물과 작은 동물·상점이 있는 테마 공간','1~2시간',{lat:33.2644,lng:131.3600},'https://floral-village.com/about'],
+ ['YU-SPOT-004','유후인 관광 츠지마차','역에서 출발해 전원 풍경과 사찰·신사를 도는 마차 체험','약 50~60분',{lat:33.2653,lng:131.3550},'https://www.yufuin-kosumosu.jp/sightseeing/195/'],
+ ['YU-SPOT-005','유후산','유후인 분지를 둘러싼 산악 풍경과 등산 코스','2~5시간',{lat:33.2820,lng:131.3920},YUFUIN_SPOT_GUIDE],
+ ['YU-SPOT-006','사기리다이 전망대','유후인 분지와 유후산을 내려다보는 도로변 전망 장소','20~40분',{lat:33.2606,lng:131.3750},'https://thespringsvalley.com/sightseeing/'],
+ ['YU-SPOT-007','우나기히메 신사','유후인의 역사와 지역 신앙을 살펴볼 수 있는 신사','30~60분',{lat:33.2591,lng:131.3610},YUFUIN_SPOT_GUIDE],
+ ['YU-SPOT-008','부산사','유후인 츠지마차 코스에도 포함되는 고즈넉한 사찰','20~40분',{lat:33.2630,lng:131.3670},YUFUIN_SPOT_GUIDE],
+ ['YU-SPOT-009','고젠인','유후인 산책 코스에서 들를 수 있는 사찰','20~40분',{lat:33.2640,lng:131.3600},YUFUIN_SPOT_GUIDE],
+ ['YU-SPOT-010','COMICO ART MUSEUM YUFUIN','현대미술과 구마 겐고 건축, 유후산 전망을 함께 보는 미술관','1~2시간',{lat:33.2640,lng:131.3470},'https://camy.oita.jp/'],
+ ['YU-SPOT-011','유후인 스테인드글라스 미술관','유럽의 앤티크 스테인드글라스와 교회 공간을 감상하는 미술관','45~90분',{lat:33.2600,lng:131.3620},'https://yufuin-sg-museum.jp/'],
+ ['YU-SPOT-012','아르테지오','음악과 예술을 주제로 한 전시 공간과 카페','45~90분',{lat:33.2730,lng:131.3520},YUFUIN_SPOT_GUIDE],
+ ['YU-SPOT-013','규슈 자동차 역사관','클래식 자동차와 관련 자료를 전시하는 박물관','45~90분',{lat:33.2650,lng:131.3600},'https://yufuin.gr.jp/spot/spot-1155/'],
+ ['YU-SPOT-014','트릭3D아트 유후인','착시 작품과 기념사진을 즐기는 실내 체험형 미술관','30~60분',{lat:33.2650,lng:131.3570},'https://www.trick3dart-yufuin.com/'],
+ ['YU-SPOT-015','유후인 쇼와관','쇼와 시대의 거리와 생활 모습을 재현한 레트로 전시 공간','45~90분',{lat:33.2670,lng:131.3580},'https://showakan.jp/'],
+ ['YU-SPOT-016','유후인 딸기농원','시즌에 딸기 수확 체험을 할 수 있는 농원','1~2시간',{lat:33.2560,lng:131.3500},'https://yufuin.gr.jp/spot/spot-2219/'],
+ ['YU-SPOT-017','JR 유후인역','역사 건축과 역 앞 광장에서 유후산 풍경을 보는 여행 거점','20~40분',{lat:33.2653,lng:131.3550},'https://yufuin.gr.jp/area/yufuin/'],
+ ['YU-SPOT-018','유후인 플로라 하우스','온실 꽃 구경과 공예 체험을 함께 알아볼 수 있는 시설','45~90분',{lat:33.2530,lng:131.3500},YUFUIN_SPOT_GUIDE],
+ ['YU-SPOT-019','유노츠보 온천','산책 중 들를 수 있는 마을 공동 온천 시설','30~60분',{lat:33.2680,lng:131.3550},YUFUIN_SPOT_GUIDE],
+ ['YU-SPOT-020','오토마루 온천관','유후인역 인근에서 이용할 수 있는 공동 온천','30~60분',{lat:33.2650,lng:131.3530},YUFUIN_SPOT_GUIDE]
+];
+const yufuinRestaurants=[
+ ['YU-REST-001','由布まぶし 心','분고규·토종닭·장어를 솥밥으로 즐기는 유후인 명물 식사','분고규 솥밥·토종닭 솥밥','45~75분','https://yufumabushi-shin.com/'],
+ ['YU-REST-002','湯布院 神楽','분고규와 해산물, 채소를 즐기는 세이로 찜 전문점','분고규 찜·해산물 찜','45~75분','https://www.yufuin-kagura.com/'],
+ ['YU-REST-003','蕎麦 Murata 不生庵','직접 제분한 메밀로 만든 소바와 토리텐을 맛보는 식당','소바·토리텐','45~75분','https://production.sansou-murata.com/facilities/fushoan/'],
+ ['YU-REST-004','由布院うどん 田舎庵','손으로 뽑은 면과 직접 만든 육수의 우동 전문점','고보텐 우동·수타 우동','30~60분','https://inakaan-yufuin.com/'],
+ ['YU-REST-005','割烹サトウ','오이타 토종닭 전골과 지역 식재료를 쓰는 일본요리점','오이타 토종닭 전골·생선회·초밥','60~90분','https://www.kappou-sato.co.jp/'],
+ ['YU-REST-006','湯布院金賞コロッケ','유노츠보 거리 산책 중 맛보는 유후인 대표 고로케 간식','금상 고로케','15~30분',YUFUIN_SPOT_GUIDE],
+ ['YU-REST-007','ゆふいんバーガーハウス','현지 재료를 활용한 햄버거로 간단히 식사하기 좋은 곳','유후인 버거','30~50분',YUFUIN_SPOT_GUIDE],
+ ['YU-REST-008','B-speak','유후인 우유로 만든 P롤로 알려진 롤케이크 전문점','P롤·롤케이크','15~30분','https://www.b-speak.net/'],
+ ['YU-REST-009','由布院ミルヒ','유후인 우유를 사용한 구운 치즈케이크와 푸딩 전문점','케제쿠헨·밀히 푸딩','15~30분','https://www.milch-japan.co.jp/'],
+ ['YU-REST-010','湯布院 千家','유후산 전망과 함께 토리텐 플레이트·카페 메뉴를 즐기는 카페','토리텐·프렌치토스트·푸딩','30~60분','https://www.senke.info/']
+];
+places.push(...yufuinSpots.map(([id,name,summary,stay,coordinates,source])=>{const p=S(id,name,'유후인',summary,'D','관광 후보',false,null,null,stay);p.coordinates=coordinates;p.address='유후인 지역 — 정확한 주소·운영일은 방문 전 확인';p.sourceStatus='유후인 공식 관광 안내 또는 시설 공식 페이지 확인 · 방문일 운영 재확인 필요';p.urls=[{label:'공식 안내',url:source},{label:'지도 검색',url:`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name+' Yufuin Oita Japan')}`}];p.map=p.urls[1].url;return p;}));
+places.push(...yufuinRestaurants.map(([id,name,summary,cuisine,meal,source])=>{const p=R(id,name,'유후인',cuisine,summary,'D','관광 후보','대기·영업일 방문 전 확인',meal);p.coordinates=YUFUIN_POINT;p.address='유후인 지역 — 정확한 주소·영업시간은 방문 전 확인';p.sourceStatus='공식 관광 안내 또는 음식점 공식 페이지 확인 · 방문일 영업 재확인 필요';p.urls=[{label:'공식 안내',url:source},{label:'지도 검색',url:`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name+' Yufuin Oita Japan')}`}];p.map=p.urls[1].url;return p;}));
+if(!document.querySelector('#area option[value="유후인"]'))$('#area').insertAdjacentHTML('beforeend','<option value="유후인">유후인</option>');
+const originalEstimateFromHakata=estimateFromHakata;
+estimateFromHakata=function(p){if(p.area==='유후인'){const d=distance(LODGING_BASE.point,p.coordinates);return{taxi:`렌터카 이동 ${carDriveLabel(d)}`,pub:'유후인 구간·대중교통 확인 필요'}}return originalEstimateFromHakata(p)};
 function returnRoute(dayId){const ids=state.schedule[dayId];if(!ids.length)return'';const last=get(ids[ids.length-1]);if(!last)return'';if(dayId==='day-1'){const d=distance(last.coordinates,DAY1_LODGING.point);return`<div class="route">🚗 ${esc(last.name)} → ${esc(DAY1_LODGING.label)} · 예상 약 ${d.toFixed(1)}km · 렌터카 이동 ${carDriveLabel(d)}(고속도로 기준, 실제 교통상황에 따라 다름)</div>`}if(dayId==='day-2'){const d=distance(last.coordinates,LODGING_BASE.point);return`<div class="route">🚗 ${esc(last.name)} → ${esc(LODGING_BASE.label)} · 예상 약 ${d.toFixed(1)}km · 렌터카 이동 ${carDriveLabel(d)}(고속도로 기준, 실제 교통상황에 따라 다름)</div>`}if(dayId==='day-6'){const airport=areaPoint('후쿠오카공항'),d=distance(last.coordinates,airport),taxi=Math.max(5,Math.round(d/0.38)+4),pub=Math.max(8,Math.round(d/0.23)+8);return`<div class="route">✈ ${esc(last.name)} → 후쿠오카 공항 · 예상 ${d.toFixed(1)}km · 택시 ${taxi}분(${taxiFareLabel(d)}) · 대중교통·도보 포함 ${pub}분</div>`}const d=distance(last.coordinates,LODGING_BASE.point),taxi=Math.max(5,Math.round(d/0.38)+4),pub=Math.max(8,Math.round(d/0.23)+8);return`<div class="route">${esc(last.name)} → ${esc(LODGING_BASE.label)} · 예상 ${d.toFixed(1)}km · 택시 ${taxi}분(${taxiFareLabel(d)}) · 대중교통·도보 포함 ${pub}분</div>`}
-renderPlaces();renderSchedule();
+renderPlaces();renderSchedule();document.querySelector('.appVersion').textContent='v0.98';
 </script></body></html>
